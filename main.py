@@ -4,8 +4,22 @@ from fastapi.responses import JSONResponse
 from bson import ObjectId
 from datetime import datetime 
 import pytz 
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
+
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 client = MongoClient("mongodb://localhost:27017/")
 db = client["news_data"]
